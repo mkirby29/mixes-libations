@@ -5,7 +5,7 @@
 /**
  * Listen for the document to load and initialize the application
  */
-$(document).ready();
+$(document).ready(initializeApp);
 
 /**
  * Define all global variables here.  
@@ -19,7 +19,8 @@ $(document).ready();
  *  { name: 'Jill', course: 'Comp Sci', grade: 85 }
  * ];
  */
-
+var student_array = [];
+var student_object;
 /***************************************************************************************************
 * initializeApp 
 * @params {undefined} none
@@ -27,6 +28,7 @@ $(document).ready();
 * initializes the application, including adding click handlers and pulling in any data from the server, in later versions
 */
 function initializeApp(){
+      addClickHandlersToElements();
 }
 
 /***************************************************************************************************
@@ -36,15 +38,17 @@ function initializeApp(){
 *     
 */
 function addClickHandlersToElements(){
+      $(".btn btn-success").click(handleAddClicked);
+      $(".btn btn-default").click(handleCancelClick); 
 }
 
 /***************************************************************************************************
  * handleAddClicked - Event Handler when user clicks the add button
  * @param {object} event  The event object from the click
- * @return: 
-       none
+ * @return:  none
  */
-function handleAddClicked(){
+function handleAddClicked(student_object){
+      
 }
 /***************************************************************************************************
  * handleCancelClicked - Event Handler when user clicks the cancel button, should clear out student form
