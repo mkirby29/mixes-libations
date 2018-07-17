@@ -20,8 +20,6 @@ $(document).ready(initializeApp);
  * ];
  */
 var student_array = [];
-var student_object = {};
-var gradeAverage;
 /***************************************************************************************************
 * initializeApp 
 * @params {undefined} none
@@ -66,6 +64,7 @@ function handleCancelClick(){
  * @calls clearAddStudentFormInputs, updateStudentList
  */
 function addStudent(){
+      var student_object = {};
       var studentName = $('#studentName').value;
       var studentCourse = $('#course').value;
       var studentGrade = $('#studentGrade').value;
@@ -91,11 +90,14 @@ function clearAddStudentFormInputs(){
  * into the .student_list tbody
  * @param {object} studentObj a single student object with course, name, and grade inside
  */
-function renderStudentOnDom(studentObj){
-      studentObj = student_object;
-      $('tbody .value').text(studentObj.name);
-      $('tbody .value').text(studentObj.course);
-      $('tbody .value').text(studentObj.grade);
+function renderStudentOnDom(studentObj){debugger;
+      var tabBody = $('body');
+      var tabRow = $('<tr>');
+      tabBody.append(tabRow);
+      tabRow.append($('tbody .value').text(studentObj.name));
+      tabRow.append($('tbody .value').text(studentObj.course));
+      tabRow.append($('tbody .value').text(studentObj.grade));
+
 }
 
 /***************************************************************************************************
@@ -105,7 +107,9 @@ function renderStudentOnDom(studentObj){
  * @calls renderStudentOnDom, calculateGradeAverage, renderGradeAverage
  */
 function updateStudentList(studentArray){
-      student_array = studentArray;
+      renderStudentOnDom(studentArray);
+      calculateGradeAverage();
+      renderGradeAverage();
 }
 /***************************************************************************************************
  * calculateGradeAverage - loop through the global student array and calculate average grade and return that value
@@ -120,9 +124,7 @@ function calculateGradeAverage(){
  * @returns {undefined} none
  */
 function renderGradeAverage(average){
-      gradeAverage = average;
-      for(var avg in student_object){
-      }
+      
 }
 
 
