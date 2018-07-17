@@ -65,9 +65,9 @@ function handleCancelClick(){
  */
 function addStudent(){
       var student_object = {};
-      var studentName = $('#studentName').value;
-      var studentCourse = $('#course').value;
-      var studentGrade = $('#studentGrade').value;
+      var studentName = $('#studentName').val();
+      var studentCourse = $('#course').val();
+      var studentGrade = $('#studentGrade').val();
 
       student_object.name = studentName;
       student_object.course = studentCourse;
@@ -91,12 +91,16 @@ function clearAddStudentFormInputs(){
  * @param {object} studentObj a single student object with course, name, and grade inside
  */
 function renderStudentOnDom(studentObj){debugger;
-      var tabBody = $('body');
-      var tabRow = $('<tr>');
-      tabBody.append(tabRow);
-      tabRow.append($('tbody .value').text(studentObj.name));
-      tabRow.append($('tbody .value').text(studentObj.course));
-      tabRow.append($('tbody .value').text(studentObj.grade));
+      var row = $('<tr>');
+      var data = $('<td>');
+      row.append(data).text(studentObj.name);
+      row.append(data).text(studentObj.course);
+      row.append(data).text(studentObj.grade);
+      
+      // var tabBody = $('body');
+      // $('tbody .value').text(studentObj.name);
+      // $('tbody .value').text(studentObj.course);
+      // $('tbody .value').text(studentObj.grade);
 
 }
 
@@ -107,9 +111,14 @@ function renderStudentOnDom(studentObj){debugger;
  * @calls renderStudentOnDom, calculateGradeAverage, renderGradeAverage
  */
 function updateStudentList(studentArray){
-      renderStudentOnDom(studentArray);
-      calculateGradeAverage();
-      renderGradeAverage();
+      for(var stud = 0; stud < studentArray.length; stud++){
+            var student = studentArray[stud];
+            renderStudentOnDom(student);
+      }
+      
+      // renderStudentOnDom(studentArray);
+      // calculateGradeAverage();
+      // renderGradeAverage();
 }
 /***************************************************************************************************
  * calculateGradeAverage - loop through the global student array and calculate average grade and return that value
