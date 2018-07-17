@@ -122,7 +122,6 @@ function calculateGradeAverage(){
 function renderGradeAverage(average){
       gradeAverage = average;
       for(var avg in student_object){
-            
       }
 }
 
