@@ -91,17 +91,13 @@ function clearAddStudentFormInputs(){
  * @param {object} studentObj a single student object with course, name, and grade inside
  */
 function renderStudentOnDom(studentObj){debugger;
+      var tabBody = $('tbody');
       var row = $('<tr>');
-      var data = $('<td>');
-      row.append(data).text(studentObj.name);
-      row.append(data).text(studentObj.course);
-      row.append(data).text(studentObj.grade);
-      
-      // var tabBody = $('body');
-      // $('tbody .value').text(studentObj.name);
-      // $('tbody .value').text(studentObj.course);
-      // $('tbody .value').text(studentObj.grade);
-
+      tabBody.append(row);
+      var studName = $('<td>').text(studentObj.name);
+      var studCourse = $('<td>').text(studentObj.course);
+      var studGrade = $('<td>').text(studentObj.grade);
+      row.append(studName, studCourse, studGrade);
 }
 
 /***************************************************************************************************
