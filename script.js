@@ -52,7 +52,6 @@ function handleAddClicked(event){
 /***************************************************************************************************
  * handleCancelClicked - Event Handler when user clicks the cancel button, should clear out student form
  * @param: {undefined} none
- * @returns: {undefined} none
  * @calls: clearAddStudentFormInputs
  */
 function handleCancelClick(){ 
@@ -74,8 +73,9 @@ function addStudent(){
       student_object.grade = studentGrade;
 
       student_array.push(student_object);
-      updateStudentList(student_array);
       clearAddStudentFormInputs();
+      $('.data').empty();
+      updateStudentList(student_array);
 }
 /***************************************************************************************************
  * clearAddStudentForm - clears out the form values based on inputIds variable
@@ -90,14 +90,18 @@ function clearAddStudentFormInputs(){
  * into the .student_list tbody
  * @param {object} studentObj a single student object with course, name, and grade inside
  */
-function renderStudentOnDom(studentObj){debugger;
+function renderStudentOnDom(studentObj){
       var tabBody = $('tbody');
       var row = $('<tr>');
       tabBody.append(row);
       var studName = $('<td>').text(studentObj.name);
       var studCourse = $('<td>').text(studentObj.course);
       var studGrade = $('<td>').text(studentObj.grade);
-      row.append(studName, studCourse, studGrade);
+      var tblDel = $('<td>');
+      var delBtn = $('<button>', {class:'btn btn-default',
+                                  text:'delete'});
+      row.append(studName, studCourse, studGrade,);
+      tblDel.append(delBtn);
 }
 
 /***************************************************************************************************
@@ -107,7 +111,7 @@ function renderStudentOnDom(studentObj){debugger;
  * @calls renderStudentOnDom, calculateGradeAverage, renderGradeAverage
  */
 function updateStudentList(studentArray){
-      for(var stud = 0; stud < studentArray.length; stud++){
+      for(var stud = 0; stud <= studentArray.length; stud++){
             var student = studentArray[stud];
             renderStudentOnDom(student);
       }
