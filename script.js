@@ -153,13 +153,7 @@ function renderGradeAverage(average){debugger;
       $('.avgGrade').text(average);
 }
 
-// function removeStudent(studObj){debugger;
-//       for(var i = 0; i < student_array.length; i++){
-//             if(studObj === student_array[i]){
-//                   student_array.splice(i, 1);
-//             }
-//       }
-// }
+
 
 function ajaxLoad(){
       var ajaxOptions = {
