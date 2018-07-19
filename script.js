@@ -97,11 +97,23 @@ function renderStudentOnDom(studentObj){
       var studName = $('<td>').text(studentObj.name);
       var studCourse = $('<td>').text(studentObj.course);
       var studGrade = $('<td>').text(studentObj.grade);
-      var tblDel = $('<td>');
-      var delBtn = $('<button>', {class:'btn btn-default',
-                                  text:'delete'});
-      row.append(studName, studCourse, studGrade,);
-      tblDel.append(delBtn);
+      var tblDat = $('<td>');
+      var delBtn = $('<button>', {
+            type: 'button',
+            class: 'btn btn-danger',
+            text: 'Delete'
+      });
+      var delRow = tblDat.append(delBtn);
+      row.append(studName, studCourse, studGrade, delRow);
+      var ob = {};
+      $(delBtn).on('click', function(){
+            $(this).closest('tr').remove();
+            ob = this.closest('tr');
+            console.log(ob);
+            removeStudent(ob);
+            console.log(student_array);
+          });
+      
 }
 
 /***************************************************************************************************
@@ -111,11 +123,11 @@ function renderStudentOnDom(studentObj){
  * @calls renderStudentOnDom, calculateGradeAverage, renderGradeAverage
  */
 function updateStudentList(studentArray){
-      for(var stud = 0; stud <= studentArray.length; stud++){
+      for(var stud = 0; stud < studentArray.length; stud++){
             var student = studentArray[stud];
             renderStudentOnDom(student);
-            calculateGradeAverage();
       }
+      // calculateGradeAverage();
       // renderGradeAverage();
 }
 /***************************************************************************************************
@@ -143,6 +155,14 @@ function calculateGradeAverage(students){
  */
 function renderGradeAverage(average){
       
+}
+
+function removeStudent(studObj){debugger;
+      for(var i = 0; i < student_array.length; i++){
+            if(studObj === student_array[i]){
+                  student_array.splice(i, 1);
+            }
+      }
 }
 
 
