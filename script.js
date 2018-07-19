@@ -39,6 +39,7 @@ function initializeApp(){
 function addClickHandlersToElements(){
       $(".btn btn-success").click(handleAddClicked);
       $(".btn btn-default").click(handleCancelClick); 
+      $(".btn btn-primary").click()
 }
 
 /***************************************************************************************************
@@ -55,6 +56,7 @@ function handleAddClicked(event){
  * @calls: clearAddStudentFormInputs
  */
 function handleCancelClick(){ 
+      clearAddStudentFormInputs();
 }
 /***************************************************************************************************
  * addStudent - creates a student objects based on input fields in the form and adds the object to global student array
@@ -108,10 +110,7 @@ function renderStudentOnDom(studentObj){
       var ob = {};
       $(delBtn).on('click', function(){
             $(this).closest('tr').remove();
-            ob = this.closest('tr');
-            console.log(ob);
-            removeStudent(ob);
-            console.log(student_array);
+            //removeStudent();
           });
       
 }
@@ -157,14 +156,27 @@ function renderGradeAverage(average){
       
 }
 
-function removeStudent(studObj){debugger;
-      for(var i = 0; i < student_array.length; i++){
-            if(studObj === student_array[i]){
-                  student_array.splice(i, 1);
-            }
-      }
+// function removeStudent(studObj){debugger;
+//       for(var i = 0; i < student_array.length; i++){
+//             if(studObj === student_array[i]){
+//                   student_array.splice(i, 1);
+//             }
+//       }
+// }
+
+function ajaLoad(){
+      var ajaxOptions = {
+            url: 's-apis.learningfuze.com/sgt/get',
+            dataType: 'json',
+            method: "post",
+            success: renderData,
+      };
+      $.ajax(ajaLoad);
 }
 
+function renderData(){
+      
+}
 
 
 
