@@ -39,7 +39,7 @@ function initializeApp(){
 function addClickHandlersToElements(){
       $(".btn btn-success").click(handleAddClicked);
       $(".btn btn-default").click(handleCancelClick); 
-      $(".btn btn-primary").click()
+      $(".btn btn-primary").click(ajaxLoad);
 }
 
 /***************************************************************************************************
@@ -164,18 +164,31 @@ function renderGradeAverage(average){
 //       }
 // }
 
-function ajaLoad(){
+function ajaxLoad(){
       var ajaxOptions = {
-            url: 's-apis.learningfuze.com/sgt/get',
+            url: 'http://s-apis.learningfuze.com/sgt/get',
             dataType: 'json',
-            method: "post",
+            data: {
+                  api_key: '5Sti3jadsh'
+            },
+            method: 'post',
             success: renderData,
+            error: function(){
+                  console.log('whoops');
+                }
       };
-      $.ajax(ajaLoad);
+      $.ajax(ajaxOptions);
 }
 
-function renderData(){
-      
+function renderData(response){debugger;
+      console.log(response);
+      var people = response.data;
+      console.log(people);
+      for(var i = 0; i < people.length; i++){
+            var onePerson = people[i];
+            var peopleDomElements = renderStudentOnDom(onePerson);
+            student_array.push(peopleDomElements);
+      }
 }
 
 
