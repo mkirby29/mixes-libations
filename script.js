@@ -126,15 +126,14 @@ function updateStudentList(studentArray){
             var student = studentArray[stud];
             renderStudentOnDom(student);
       }
-      calculateGradeAverage(student);
-      // renderGradeAverage();
+      renderGradeAverage(calculateGradeAverage(student));
 }
 /***************************************************************************************************
  * calculateGradeAverage - loop through the global student array and calculate average grade and return that value
  * @param: {array} students  the array of student objects
  * @returns {number}
  */
-function calculateGradeAverage(students){debugger;
+function calculateGradeAverage(students){
       var totalGrade = 0;
       var count = 0;
 
@@ -143,14 +142,15 @@ function calculateGradeAverage(students){debugger;
           count++;
       }
       var classAverage = totalGrade / count;
+      return classAverage;
 }
 /***************************************************************************************************
  * renderGradeAverage - updates the on-page grade average
  * @param: {number} average    the grade average
  * @returns {undefined} none
  */
-function renderGradeAverage(average){
-      
+function renderGradeAverage(average){debugger;
+      $('.avgGrade').text(average);
 }
 
 // function removeStudent(studObj){debugger;
