@@ -99,6 +99,7 @@ function renderStudentOnDom(studentObj){
       var studName = $('<td>').text(studentObj.name);
       var studCourse = $('<td>').text(studentObj.course);
       var studGrade = $('<td>').text(studentObj.grade);
+      console.log(studName, studCourse, studGrade);
       var tblDat = $('<td>');
       var delBtn = $('<button>', {
             type: 'button',
@@ -126,7 +127,7 @@ function updateStudentList(studentArray){
             var student = studentArray[stud];
             renderStudentOnDom(student);
       }
-      // calculateGradeAverage();
+      // calculateGradeAverage(student);
       // renderGradeAverage();
 }
 /***************************************************************************************************
@@ -134,18 +135,16 @@ function updateStudentList(studentArray){
  * @param: {array} students  the array of student objects
  * @returns {number}
  */
-function calculateGradeAverage(students){
-      student_array = students;
+function calculateGradeAverage(students){debugger;
+      var totalGrade = 0;
       var count = 0;
-      var total = 0;
-      for(var g = 0; g < student_array.length; g++){
-            count++;
-            for(var grd in Object){
-                  total = total + Object[grd].grade;
-            }
+
+      for(var g in students){
+          totalGrade = totalGrade + students[g].grade;
+          count++;
       }
-      var totalAvg = total/count;
-      return totalAvg;
+      var classAverage = totalGrade / count;
+
 }
 /***************************************************************************************************
  * renderGradeAverage - updates the on-page grade average
@@ -181,14 +180,14 @@ function ajaxLoad(){
 }
 
 function renderData(response){debugger;
-      console.log(response);
       var people = response.data;
-      console.log(people);
       for(var i = 0; i < people.length; i++){
             var onePerson = people[i];
             var peopleDomElements = renderStudentOnDom(onePerson);
-            student_array.push(peopleDomElements);
+            student_array.push(people);
       }
+      renderStudentOnDom(people);
+      // calculateGradeAverage(student_array);
 }
 
 
