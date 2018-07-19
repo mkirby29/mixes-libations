@@ -99,7 +99,6 @@ function renderStudentOnDom(studentObj){
       var studName = $('<td>').text(studentObj.name);
       var studCourse = $('<td>').text(studentObj.course);
       var studGrade = $('<td>').text(studentObj.grade);
-      console.log(studName, studCourse, studGrade);
       var tblDat = $('<td>');
       var delBtn = $('<button>', {
             type: 'button',
@@ -108,7 +107,7 @@ function renderStudentOnDom(studentObj){
       });
       var delRow = tblDat.append(delBtn);
       row.append(studName, studCourse, studGrade, delRow);
-      var ob = {};
+
       $(delBtn).on('click', function(){
             $(this).closest('tr').remove();
             //removeStudent();
@@ -127,7 +126,7 @@ function updateStudentList(studentArray){
             var student = studentArray[stud];
             renderStudentOnDom(student);
       }
-      // calculateGradeAverage(student);
+      calculateGradeAverage(student);
       // renderGradeAverage();
 }
 /***************************************************************************************************
@@ -144,7 +143,6 @@ function calculateGradeAverage(students){debugger;
           count++;
       }
       var classAverage = totalGrade / count;
-
 }
 /***************************************************************************************************
  * renderGradeAverage - updates the on-page grade average
@@ -179,15 +177,15 @@ function ajaxLoad(){
       $.ajax(ajaxOptions);
 }
 
-function renderData(response){debugger;
+function renderData(response){
       var people = response.data;
       for(var i = 0; i < people.length; i++){
             var onePerson = people[i];
-            var peopleDomElements = renderStudentOnDom(onePerson);
+            renderStudentOnDom(onePerson);
             student_array.push(people);
       }
       renderStudentOnDom(people);
-      // calculateGradeAverage(student_array);
+      updateStudentList(student_array);
 }
 
 
