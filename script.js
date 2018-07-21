@@ -28,6 +28,7 @@ var student_array = [];
 */
 function initializeApp(){
       addClickHandlersToElements();
+      ajaxLoad();
 }
 
 /***************************************************************************************************
@@ -75,8 +76,9 @@ function addStudent(){
       student_object.grade = studentGrade;
 
       student_array.push(student_object);
-      clearAddStudentFormInputs();
       $('.data').empty();
+      clearAddStudentFormInputs();
+      ajaxPush(student_object);
       updateStudentList(student_array);
 }
 /***************************************************************************************************
@@ -96,6 +98,7 @@ function renderStudentOnDom(studentObj){
       var tabBody = $('tbody');
       var row = $('<tr>');
       tabBody.append(row);
+
       var studName = $('<td>').text(studentObj.name);
       var studCourse = $('<td>').text(studentObj.course);
       var studGrade = $('<td>').text(studentObj.grade);
@@ -107,12 +110,14 @@ function renderStudentOnDom(studentObj){
       });
       var delRow = tblDat.append(delBtn);
       row.append(studName, studCourse, studGrade, delRow);
-
-      $(delBtn).on('click', function(){
+      delBtn.click(function(){
             $(this).closest('tr').remove();
-            //removeStudent();
-          });
-      
+            removeStudent()
+      }); 
+      // function removeStudent(list){
+      //       list = student_array;
+      //       list.splice(event.currentTarget, 1);
+      // }     
 }
 
 /***************************************************************************************************
@@ -126,7 +131,7 @@ function updateStudentList(studentArray){
             var student = studentArray[stud];
             renderStudentOnDom(student);
       }
-      renderGradeAverage(calculateGradeAverage(student));
+      // renderGradeAverage(calculateGradeAverage(student));
 }
 /***************************************************************************************************
  * calculateGradeAverage - loop through the global student array and calculate average grade and return that value
@@ -137,8 +142,8 @@ function calculateGradeAverage(students){
       var totalGrade = 0;
       var count = 0;
 
-      for(var g in students){
-          totalGrade = totalGrade + students[g].grade;
+      for(var g = 0; g < students.length; g++){
+          totalGrade = totalGrade + parseInt(students[g].grade);
           count++;
       }
       var classAverage = totalGrade / count;
@@ -149,14 +154,14 @@ function calculateGradeAverage(students){
  * @param: {number} average    the grade average
  * @returns {undefined} none
  */
-function renderGradeAverage(average){debugger;
+function renderGradeAverage(average){
       $('.avgGrade').text(average);
 }
 
 
 
 function ajaxLoad(){
-      var ajaxOptions = {
+      var ajaxOptionGet = {
             url: 'http://s-apis.learningfuze.com/sgt/get',
             dataType: 'json',
             data: {
@@ -168,7 +173,7 @@ function ajaxLoad(){
                   console.log('whoops');
                 }
       };
-      $.ajax(ajaxOptions);
+      $.ajax(ajaxOptionGet);
 }
 
 function renderData(response){
@@ -176,12 +181,39 @@ function renderData(response){
       for(var i = 0; i < people.length; i++){
             var onePerson = people[i];
             renderStudentOnDom(onePerson);
-            student_array.push(people);
+            student_array.push(people[i]);
       }
-      renderStudentOnDom(people);
-      updateStudentList(student_array);
 }
 
+function ajaxPush(student_object){
+      var ajaxOptionCreate = {
+            url: 'http://s-apis.learningfuze.com/sgt/create',
+            dataType: 'json',
+            data: {
+                  api_key: '5Sti3jadsh',
+                  name: student_object.name,
+                  course: student_object.course,
+                  grade: student_object.grade,
+            },
+            method: 'post',
+            success: renderAddStudent(),
+            error: function(){
+                  console.log('whoops');
+                }
+      };
+      $.ajax(ajaxOptionCreate);
+}
 
-
-
+function renderAddStudent(response){
+      student_array = [];
+      ajaxLoad();
+}
+function ajaxRemove(){
+      var ajaxOptionDelete = {
+            url: 'http://s-apis.learningfuze.com/sgt/delete',
+            dataType: 'json',
+            data: {
+                  api_key: '5Sti3jadsh',
+            }
+      }
+}
