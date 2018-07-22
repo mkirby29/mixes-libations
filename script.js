@@ -98,7 +98,7 @@ function renderStudentOnDom(studentObj){
       var tabBody = $('tbody');
       var row = $('<tr>');
       tabBody.append(row);
-
+      
       var studName = $('<td>').text(studentObj.name);
       var studCourse = $('<td>').text(studentObj.course);
       var studGrade = $('<td>').text(studentObj.grade);
@@ -112,7 +112,8 @@ function renderStudentOnDom(studentObj){
       row.append(studName, studCourse, studGrade, delRow);
       delBtn.click(function(){
             $(this).closest('tr').remove();
-            removeStudent()
+            var deleted = student_array.splice(student_array[student_array.id, 1]);
+            ajaxRemove(deleted);
       }); 
       // function removeStudent(list){
       //       list = student_array;
@@ -158,8 +159,6 @@ function renderGradeAverage(average){
       $('.avgGrade').text(average);
 }
 
-
-
 function ajaxLoad(){
       var ajaxOptionGet = {
             url: 'http://s-apis.learningfuze.com/sgt/get',
@@ -170,7 +169,7 @@ function ajaxLoad(){
             method: 'post',
             success: renderData,
             error: function(){
-                  console.log('whoops');
+                  console.log('fail');
                 }
       };
       $.ajax(ajaxOptionGet);
@@ -196,9 +195,9 @@ function ajaxPush(student_object){
                   grade: student_object.grade,
             },
             method: 'post',
-            success: renderAddStudent(),
+            success: renderAddStudent,
             error: function(){
-                  console.log('whoops');
+                  console.log('fail');
                 }
       };
       $.ajax(ajaxOptionCreate);
@@ -208,12 +207,24 @@ function renderAddStudent(response){
       student_array = [];
       ajaxLoad();
 }
-function ajaxRemove(){
+function ajaxRemove(studentObj){
       var ajaxOptionDelete = {
             url: 'http://s-apis.learningfuze.com/sgt/delete',
             dataType: 'json',
             data: {
                   api_key: '5Sti3jadsh',
+                  student_id: studentObj.id,
+            },
+            method: 'post',
+            success: removeStudent,
+            error: function(){
+                  console.log('fail');
             }
-      }
+      };
+      $.ajax(removeStudent);
+}
+
+function removeStudent(response){
+      student_array = [];
+      ajaxLoad();    
 }
