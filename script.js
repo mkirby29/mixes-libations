@@ -112,7 +112,7 @@ function renderStudentOnDom(studentObj){
       row.append(studName, studCourse, studGrade, delRow);
       delBtn.click(function(){
             $(this).closest('tr').remove();
-            // var deleted = student_array.splice(student_array[studentObj], 1);
+            // var deleted = student_array.splice(studentObj), 1);
             var deletedStudent = studentObj;
             removeStudentFromServer(deletedStudent);
       });
@@ -157,11 +157,11 @@ function renderGradeAverage(average){
 
 function loadPeople(){
       var ajaxOptionGet = {
-            url: 'http://s-apis.learningfuze.com/sgt/get',
+            url: 'data.php',
             dataType: 'json',
-            method: 'post',
+            method: 'get',
             data: {
-                  api_key: '5Sti3jadsh'
+                  action: 'readAll'
             },
             success: renderData,
             error: function(){
@@ -172,6 +172,7 @@ function loadPeople(){
 }
 
 function renderData(response){
+
       var people = response.data;
       for(var i = 0; i < people.length; i++){
             var onePerson = people[i];
@@ -183,11 +184,11 @@ function renderData(response){
 
 function addStudentToServer(student_object){
       var ajaxOptionCreate = {
-            url: 'http://s-apis.learningfuze.com/sgt/create',
+            url: 'data.php',
             dataType: 'json',
-            method: 'post',
+            method: 'get',
             data: {
-                  api_key: '5Sti3jadsh',
+                  action: 'insert',
                   name: student_object.name,
                   course: student_object.course,
                   grade: student_object.grade,
@@ -204,13 +205,13 @@ function renderAddStudent(){
       student_array = [];
       loadPeople();
 }
-function removeStudentFromServer(studentObj){debugger;
+function removeStudentFromServer(studentObj){
       var ajaxOptionDelete = {
-            url: 'http://s-apis.learningfuze.com/sgt/delete',
+            url: 'data.php',
             dataType: 'json',
-            method: 'post',
+            method: 'get',
             data: {
-                  api_key: '5Sti3jadsh',
+                  action: 'delete',
                   student_id: studentObj.id,
             },
             success: removeStudent,
