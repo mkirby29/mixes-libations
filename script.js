@@ -40,7 +40,7 @@ function initializeApp(){
 function addClickHandlersToElements(){
       $(".btn btn-success").click(handleAddClicked);
       $(".btn btn-default").click(handleCancelClick); 
-      $(".btn btn-primary").click(loadPeople);
+      $(".btn btn-primary").click(updatePeople);
 }
 
 /***************************************************************************************************
@@ -100,7 +100,7 @@ function renderStudentOnDom(studentObj){
       tabBody.append(row);
       
       var studName = $('<td>').text(studentObj.name);
-      var studCourse = $('<td>').text(studentObj.course);
+      var studCourse = $('<td>').text(studentObj.course_name);
       var studGrade = $('<td>').text(studentObj.grade);
       var tblDat = $('<td>');
       var delBtn = $('<button>', {
@@ -126,7 +126,7 @@ function renderStudentOnDom(studentObj){
 function updateStudentList(studentArray){
       for(var stud = 0; stud < studentArray.length; stud++){
             var student = studentArray[stud];
-            renderStudentOnDom(student);
+            // renderStudentOnDom(student);
       }
       renderGradeAverage(calculateGradeAverage(studentArray));
 }
@@ -135,12 +135,12 @@ function updateStudentList(studentArray){
  * @param: {array} students  the array of student objects
  * @returns {number}
  */
-function calculateGradeAverage(students){
+function calculateGradeAverage(students){debugger;
       var totalGrade = 0;
       var count = 0;
 
       for(var g = 0; g < students.length; g++){
-          totalGrade = totalGrade + (students[g].grade);
+          totalGrade = totalGrade + parseInt(students[g].grade);
           count++;
       }
       var classAverage = totalGrade / count;
@@ -172,7 +172,7 @@ function loadPeople(){
 }
 
 function renderData(response){
-
+      student_array = [];
       var people = response.data;
       for(var i = 0; i < people.length; i++){
             var onePerson = people[i];
@@ -214,7 +214,9 @@ function removeStudentFromServer(studentObj){
                   action: 'delete',
                   student_id: studentObj.id,
             },
-            success: removeStudent,
+            success: function(){
+                  console.log("DELETED");
+            },
             error: function(){
                   console.log('fail');
             }
@@ -222,7 +224,31 @@ function removeStudentFromServer(studentObj){
       $.ajax(ajaxOptionDelete);
 }
 
-function removeStudent(){
+// function removeStudent(){
+//       student_array = [];
+//       loadPeople();
+// }
+
+function updatePeople(){
+      var updateList = {
+            url: 'data.php',
+            dataType: 'json',
+            method: 'get',
+            data: {
+                  action: 'update',
+                  name: student_object.name,
+                  course: student_object.course,
+                  grade: student_object.grade,
+            },
+            success: updateAndPopulate,
+            error: function(){
+                  console.log('fail');
+                }
+      };
+      $.ajax(updateList);
+}
+
+function updateAndPopulate(){
       student_array = [];
       loadPeople();
 }

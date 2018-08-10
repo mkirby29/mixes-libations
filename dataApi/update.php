@@ -1,6 +1,6 @@
 <?php
 
-if(empty($_GET['name', 'grade', 'course_name'])){//check if you have all the data you need from the client-side call.  This should include the fields being changed and the ID of the student to be changed
+if(empty($_GET['id'], $_GET['name'], $_GET['grade'], $_GET['course_name'])){//check if you have all the data you need from the client-side call.  This should include the fields being changed and the ID of the student to be changed
 	$output['errors'] = 'missing data';//if not, add an appropriate error to errors
 }
 
