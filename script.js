@@ -38,9 +38,17 @@ function initializeApp(){
 *     
 */
 function addClickHandlersToElements(){
-      $(".btn btn-success").click(handleAddClicked);
-      $(".btn btn-default").click(handleCancelClick); 
-      $(".btn btn-primary").click(updatePeople);
+      $(".addBtn").click(handleAddClicked);
+      $(".cancelBtn").click(handleCancelClick); 
+      $(document).keypress(function(e) {
+            if(!edit_clicked){
+                  if(e.which == 13) {
+                        handleAddClicked();
+                  }
+            }
+        });
+      $('.form-control').on('input', highlightTextInput);
+      $('.student-list-container').on('click', removeErrorMessages);
 }
 
 /***************************************************************************************************
@@ -49,7 +57,7 @@ function addClickHandlersToElements(){
  * @return:  none
  */
 function handleAddClicked(event){
-      addStudent();
+      validateStudent();
 }
 /***************************************************************************************************
  * handleCancelClicked - Event Handler when user clicks the cancel button, should clear out student form
@@ -58,6 +66,7 @@ function handleAddClicked(event){
  */
 function handleCancelClick(){ 
       clearAddStudentFormInputs();
+      removeErrorMessages();
 }
 /***************************************************************************************************
  * addStudent - creates a student objects based on input fields in the form and adds the object to global student array
@@ -103,13 +112,23 @@ function renderStudentOnDom(studentObj){
       var studCourse = $('<td>').text(studentObj.course_name);
       var studGrade = $('<td>').text(studentObj.grade);
       var tblDat = $('<td>');
+      var editBtn = $('<button>', {
+            type: 'button',
+            class: 'btn btn-info table_button',
+            text: 'Edit',
+            on: {
+                  click: editMode
+            }
+      });
       var delBtn = $('<button>', {
             type: 'button',
             class: 'btn btn-danger',
             text: 'Delete'
       });
+      var editRow = tblDat.append(editBtn); 
       var delRow = tblDat.append(delBtn);
-      row.append(studName, studCourse, studGrade, delRow);
+      row.append(studName, studCourse, studGrade, delRow, editRow);
+      // updateBtn.click(updateAndPopulate);
       delBtn.click(function(){
             $(this).closest('tr').remove();
             // var deleted = student_array.splice(studentObj), 1);
@@ -135,7 +154,7 @@ function updateStudentList(studentArray){
  * @param: {array} students  the array of student objects
  * @returns {number}
  */
-function calculateGradeAverage(students){debugger;
+function calculateGradeAverage(students){
       var totalGrade = 0;
       var count = 0;
 
@@ -229,26 +248,42 @@ function removeStudentFromServer(studentObj){
 //       loadPeople();
 // }
 
-function updatePeople(){
+function updatePeople(studentObj){
       var updateList = {
             url: 'data.php',
             dataType: 'json',
             method: 'get',
             data: {
-                  action: 'update',
-                  name: student_object.name,
-                  course: student_object.course,
-                  grade: student_object.grade,
+                  action: 'update', 
+                  name: studentObj.name,
+                  course: studentObj.course,
+                  grade: studentObj.grade,
             },
-            success: updateAndPopulate,
+            success: function(){
+                  console.log(UPDATED);
+            },
             error: function(){
-                  console.log('fail');
-                }
+                  console.log('failed to update');
+            }
       };
       $.ajax(updateList);
 }
 
 function updateAndPopulate(){
-      student_array = [];
-      loadPeople();
+      var studObject = {};
+      var studName = $('#studentName').val();
+      var studCourse = $('#course').val();
+      var studGrade = $('#studentGrade').val();
+
+      if(studObject.studName === " "){
+            studObject.studName = this.studName;
+      }
+      if(studObject.studCourse === " "){
+            studObject.studCourse = this.studCourse;
+      }
+      if(studObject.studGrade === " "){
+            studObject.studGrade = this.studGrade;
+      }
+      updatePeople(studObject);
+      clearAddStudentFormInputs();
 }

@@ -39,12 +39,12 @@
                 <span class="glyphicon glyphicon-education"></span>
             </span>
             <input type="text" class="form-control" name="studentGrade" id="studentGrade"
-                   placeholder="Student Grade">
+                   placeholder="Student Grade" onchange="setTwoNumberDecimal(this)" min=0 max=100>
         </div>
-        <button type="button" class="btn btn-success" onclick="handleAddClicked()">Add</button>
-        <button type="button" class="btn btn-default" onclick="handleCancelClick()">Cancel</button>
-        <button type="button" class="btn btn-primary" onclick="updatePeople()">Update</button>
+        <button type="button" class="addBtn btn btn-success" onclick="handleAddClicked()">Add</button>
+        <button type="button" class="cancelBtn btn btn-default" onclick="handleCancelClick()">Cancel</button>
     </div>
+    <div class='gap col-xs-12 hidden-sm hidden-md hidden-lg'></div>
     <div class="student-list-container col-sm-9 col-xs-12">
         <table class="student-list table">
             <thead>
@@ -56,6 +56,7 @@
             </tr>
             </thead>
             <tbody class="data">
+                <!-- New rows get added here -->
             </tbody>
         </table>
     </div>
