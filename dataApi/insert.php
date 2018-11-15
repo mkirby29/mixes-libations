@@ -5,10 +5,10 @@ if(empty($_GET)){//check if you have all the data you need from the client-side 
 }
 
 $name=$_GET['name'];
-$grade=$_GET['grade'];
-$course_name=$_GET['course'];
+$rating=$_GET['rating'];
+$location=$_GET['location'];
 //write a query that inserts the data into the database.  remember that ID doesn't need to be set as it is auto incrementing
-$query = "INSERT INTO `student_data`(`id`, `name`, `grade`, `course_name`) VALUES (NULL, '$name', '$grade', '$course_name')";
+$query = "INSERT INTO `cocktail_data`(`name`, `rating`, `location`) VALUES ('$name', '$rating', '$location')";
 
 //send the query to the database, store the result of the query into $result
 $result = mysqli_query($conn, $query);

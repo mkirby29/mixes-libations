@@ -2,6 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
@@ -11,35 +12,35 @@
 <div class="container">
     <div class="header">
         <!-- only show this element when the isnt on mobile -->
-        <h1 class="hidden-xs">Student Grade Table
-            <small class="pull-right">Grade Average : <span class="avgGrade label label-default"></span></small>
+        <h1 class="hidden-xs" id="title" style="color: yellow">Mixes and Libations
+            <small class="pull-right" id="ratingTitle">Rating : <span class="avgRating label label-default"></span></small>
         </h1>
         <!-- only show this element when the user gets to a mobile version -->
-        <h3 class="hidden-lg">Student Grade Table
-            <small>Grade Average : <span class="avgGrade label label-default"></span></small>
+        <h3 class="hidden-lg" id="title" style="color: yellow">Mixes and Libations
+            <small id="ratingTitle">Rating : <span class="avgRating label label-default"></span></small>
         </h3>
     </div>
     <div class="form-group student-add-form pull-right col-md-3 col-xs-12">
-        <h4>Add Student</h4>
-        <div class="form-group input-group">
+        <h4 style="color: yellow">Add Cocktail</h4>
+        <div class="form-group input-group" id="nameInputGroup">
             <span class="input-group-addon">
-                <span class="glyphicon glyphicon-user"></span>
+                <span class="glyphicon glyphicon-glass"></span>
             </span>
-            <input type="text" class="form-control" name="studentName" id="studentName" placeholder="Student Name">
+            <input type="text" class="form-control" name="cocktailName" id="cocktailName" placeholder="Cocktail Name">
         </div>
-        <div class="form-group input-group">
+        <div class="form-group input-group" id="locationInputGroup">
             <span class="input-group-addon">
-                <span class="glyphicon glyphicon-list-alt"></span>
+                <span class="glyphicon glyphicon-map-marker"></span>
             </span>
-            <input type="text" class="form-control" name="course" id="course"
-                   placeholder="Student Course">
+            <input type="text" class="form-control" name="location" id="location"
+                   placeholder="Cocktail Location">
         </div>
-        <div class="form-group input-group">
+        <div class="form-group input-group" id="ratingInputGroup">
             <span class="input-group-addon">
-                <span class="glyphicon glyphicon-education"></span>
+                <span class="glyphicon glyphicon-star"></span>
             </span>
-            <input type="text" class="form-control" name="studentGrade" id="studentGrade"
-                   placeholder="Student Grade" onchange="setTwoNumberDecimal(this)" min=0 max=100>
+            <input type="text" class="form-control" name="rating" id="rating"
+                   placeholder="Rating 1-10" onchange="setTwoNumberDecimal(this)" min=0 max=10>
         </div>
         <button type="button" class="addBtn btn btn-success" onclick="handleAddClicked()">Add</button>
         <button type="button" class="cancelBtn btn btn-default" onclick="handleCancelClick()">Cancel</button>
@@ -49,9 +50,9 @@
         <table class="student-list table">
             <thead>
             <tr>
-                <th>Student Name</th>
-                <th>Student Course</th>
-                <th>Student Grade</th>
+                <th>Cocktail Name</th>
+                <th>Cocktail Location</th>
+                <th>Rating</th>
                 <th>Operations</th>
             </tr>
             </thead>
