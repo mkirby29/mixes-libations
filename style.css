@@ -1,0 +1,43 @@
+/* td{
+    word-break:break-all;
+    text-shadow: 1px 1px white;
+    font-size: medium;
+}
+
+th{
+    color: white;
+    font-size: large;
+    text-shadow: 2px 2px black;
+} */
+.btn{
+    margin: 2px;
+}
+
+@media all and (max-width: 475px) {
+    td{
+        font-size: 13px;
+    }
+}
+
+.gap{
+    height: 5vh;
+}
+
+/* body{
+    background-image: url("images/cocktails.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0; 
+} */
+
+/* #title{
+    text-shadow: 5px 5px red;
+}
+
+#ratingTitle{
+    color: yellow;
+    text-shadow: 0px 0px;
+} */

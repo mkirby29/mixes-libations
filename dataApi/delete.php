@@ -3,7 +3,7 @@
 if(empty($_GET)){//check if you have all the data you need from the client-side call.  
 	$ouput['errors'] = 'missing data';//if not, add an appropriate error to errors
 }
-$query = "DELETE FROM `student_data` WHERE ID={$_GET['student_id']}";
+$query = "DELETE FROM `cocktail_data` WHERE ID={$_GET['id']}";
 //write a query that deletes the student by the given student ID  
 //send the query to the database, store the result of the query into $result
 $result = mysqli_query($conn, $query);

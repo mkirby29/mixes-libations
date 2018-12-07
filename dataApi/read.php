@@ -1,7 +1,7 @@
 <?php
 
 //write a query that selects all the students from the database, all the data from each row
-$query = "SELECT * FROM `student_data`";
+$query = "SELECT * FROM `cocktail_data`";
 //send the query to the database, store the result of the query into $result
 $result = mysqli_query($conn, $query);
 
