@@ -13,14 +13,16 @@
     <div class="header">
         <!-- only show this element when the isnt on mobile -->
         <h1 class="hidden-xs" id="title">Mixes and Libations
+            <img src="images/drinkIcon.png" alt="">
             <small class="pull-right" id="ratingTitle">Rating : <span class="avgRating label label-default"></span></small>
         </h1>
         <!-- only show this element when the user gets to a mobile version -->
-        <h3 class="hidden-lg" id="title">Mixes and Libations
+        <h3 class="visible-xs" id="title">Mixes and Libations
+            <img src="images/drinkIcon2.png" alt="">
             <small id="ratingTitle">Rating : <span class="avgRating label label-default"></span></small>
         </h3>
     </div>
-    <div class="form-group student-add-form pull-right col-md-3 col-xs-12">
+    <form class="form-group student-add-form pull-right col-md-3 col-xs-12">
         <h4>Add Cocktail</h4>
         <div class="form-group input-group" id="nameInputGroup">
             <span class="input-group-addon">
@@ -40,11 +42,11 @@
                 <span class="glyphicon glyphicon-star"></span>
             </span>
             <input type="text" class="form-control" name="rating" id="rating"
-                   placeholder="Rating 1-10" onchange="setTwoNumberDecimal(this)" min=0 max=10>
+                   placeholder="Rating 1-10" onchange="setTwoNumberDecimal(this)" min=1 max=10>
         </div>
-        <button type="button" class="addBtn btn btn-success" onclick="handleAddClicked()">Add</button>
-        <button type="button" class="cancelBtn btn btn-default" onclick="handleCancelClick()">Cancel</button>
-    </div>
+        <button type="button" class="addBtn btn btn-success">Add</button>
+        <button type="button" class="cancelBtn btn btn-default">Cancel</button>
+    </form>
     <div class='gap col-xs-12 hidden-sm hidden-md hidden-lg'></div>
     <div class="student-list-container col-sm-9 col-xs-12">
         <table class="student-list table">

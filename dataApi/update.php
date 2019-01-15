@@ -3,6 +3,11 @@
 	$output['errors'] = 'missing data';//if not, add an appropriate error to errors
 }
 
+$_GET['id'] = addslashes($_GET['id']);
+$_GET['name'] = addslashes($_GET['name']);
+$_GET['rating'] = addslashes($_GET['rating']);
+$_GET['location'] = addslashes($_GET['location']);
+
 $query = "UPDATE `cocktail_data` SET `name` = '{$_GET['name']}', `rating` = '{$_GET['rating']}', `location` = '{$_GET['location']}' WHERE `id`= {$_GET['id']}";
 //write a query that updates the data at the given student ID.  
 //send the query to the database, store the result of the query into $result
