@@ -88,17 +88,18 @@ function addCocktail(){
 
       cocktail_array.push(cocktail_object);
       $('.data').empty();
-      clearAddCocktailFormInputs();
+      // clearAddCocktailFormInputs();
       addCocktailToServer(cocktail_object);
       updateCocktailList(cocktail_array);
+      // removeErrorMessages();
 }
 /***************************************************************************************************
  * clearAddStudentForm - clears out the form values based on inputIds variable
  */
 function clearAddCocktailFormInputs(){
-      $('input[name=cocktailName]').val(" ");
-      $('input[name=location]').val(" ");
-      $('input[name=rating]').val(" ");
+      $('input[name=cocktailName]').val("");
+      $('input[name=location]').val("");
+      $('input[name=rating]').val("");
 }
 /***************************************************************************************************
  * renderStudentOnDom - take in a student object, create html elements from the values and then append the elements
@@ -282,10 +283,14 @@ function renderCocktailOnDom(cocktailObj){
                         if(response.success){
                               name = $(nameInput).val();
                               location = $(locationInput).val();
-                              rating = parseInt($(ratingInput).val());
-                              saveDel = false;
-                              exitEditMode();
+                              rating = parseFloat($(ratingInput).val()); 
                         }
+                        saveDel = false;
+                        exitEditMode();
+                  },
+                  failure: function(err) {
+                        saveDel = false;
+                        exitEditMode();
                   },
                   dataType: 'json',
             };
@@ -318,7 +323,7 @@ function renderCocktailOnDom(cocktailObj){
             }
             var average = calculateRatingAverage(cocktail_array);
             renderRatingAverage(average);
-            editClicked;
+            editClicked = false;
       }
 
       function addErrorConfirmationBar(){
@@ -426,7 +431,9 @@ function calculateRatingAverage(cocktails){
       if(ratingAverage === NaN){
             ratingAverage = 0;
       }
-      return ratingAverage;
+      var ratAve = ratingAverage.toFixed(2);
+      
+      return ratAve;
 }
 /***************************************************************************************************
  * renderGradeAverage - updates the on-page grade average
@@ -463,6 +470,8 @@ function renderData(response){
       }
       updateCocktailList(cocktail_array);
       console.log(response);
+      clearAddCocktailFormInputs();
+      removeErrorMessages();
 }
 
 function addCocktailToServer(cocktail_object){
@@ -569,7 +578,7 @@ function highlightTextInput(){
             $(this).closest('div').addClass('has-error');
             $(this).closest('div').removeClass('has-success');
       }
-      else if($(this).is('#rating')&&(inputText<0 || inputText>10)){
+      else if($(this).is('#rating')&&(inputText<0 || inputText>10 || isNaN($('#rating').val()))){
             $(this).closest('div').addClass('has-error');
             $(this).closest('div').removeClass('has-success');
       }
@@ -615,10 +624,13 @@ function validateCocktail(){
             $('<p class="text-danger errorMessage">&#9702 Rating required.</p>').insertAfter('#ratingInputGroup');
       }
       else if($('#rating').val()>10){
-            $('<p class="text-danger errorMessage" style="color: white">&#9702 Rating must not exceed 10.</p>').insertAfter('#ratingInputGroup');
+            $('<p class="text-danger errorMessage">&#9702 Rating must not exceed 10.</p>').insertAfter('#ratingInputGroup');
       }
       else if($('#rating').val()<0){
             $('<p class="text-danger errorMessage">&#9702 Rating cannot be negative.</p>').insertAfter('#ratingInputGroup');
+      }
+      else if(isNaN($('#rating').val())){
+            $('<p class="text-danger errorMessage">&#9702 Rating must be a number from 1-10.</p>').insertAfter('#ratingInputGroup');
       }
       else{validate += 1;}
 
@@ -635,6 +647,9 @@ function removeErrorMessages(){
                   $('#cocktailName').closest('div').removeClass('has-error');
                   $('#location').closest('div').removeClass('has-error');
                   $('#rating').closest('div').removeClass('has-error');
+                  $('#cocktailName').closest('div').removeClass('has-success');
+                  $('#location').closest('div').removeClass('has-success');
+                  $('#rating').closest('div').removeClass('has-success');
             }
 }
 
