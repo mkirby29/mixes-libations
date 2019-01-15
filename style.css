@@ -16,6 +16,7 @@ th{
 
 .btn{
     margin: 2px;
+    padding: 8px;
 }
 
 @media all and (max-width: 475px) {
