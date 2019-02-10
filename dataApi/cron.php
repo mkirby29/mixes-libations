@@ -1,6 +1,6 @@
 <?php
 
-$conn = mysqli_connect('', '', '', '');
+$conn = mysqli_connect('localhost', 'matt', 'bananaRacecar', 'cocktails');
 
 $truncateSQL = "TRUNCATE `coctail_data`";
 
