@@ -160,6 +160,12 @@ function renderCocktailOnDom(cocktailObj){
             text: 'Save'
       });
 
+      var canBtn = $("<button>", {
+            type: 'button',
+            class: 'btn btn-default',
+            text: 'Cancel'
+      });
+
       var nameInput = $('<input />', {
             'type': 'text',
             'class': 'tableInput',
@@ -244,6 +250,7 @@ function renderCocktailOnDom(cocktailObj){
             $(drinkRating).append(ratingInput);
 
             $(editBtn).replaceWith(saveBtn);
+            $(delBtn).replaceWith(canBtn);
 
             $(saveBtn).on('click', updateCocktail);
 
@@ -305,12 +312,14 @@ function renderCocktailOnDom(cocktailObj){
             $(document).off('click');
 
             $(editBtn).on('click', editMode);
+            $(delBtn).on('click', addErrorConfirmationBar);
 
             $(drinkName).text(name);
             $(drinkCourse).text(location);
             $(drinkRating).text(rating);
 
             $(saveBtn).remove();
+            $(canBtn).replaceWith(delBtn);
             $(tableBtns).append(editBtn);
             $(row).removeClass('bg-warning');
 
