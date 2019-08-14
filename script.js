@@ -232,10 +232,9 @@ function renderCocktailOnDom(cocktailObj){
             }
             if($(window).width()<475){
                   saveBtn.html('<i class="far fa-save"></i>');
-                  canBtn.html('<i class="far fa-close"></i>');
+                  canBtn.html('<i class="fas fa-window-close"></i>');
             }else{
                   saveBtn.html('Save');
-                  canBtn.html('Cancel');
             }
 
             editClicked = true;
