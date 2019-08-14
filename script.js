@@ -77,6 +77,7 @@ function handleCancelClick(){
  * @calls clearAddStudentFormInputs, updateStudentList
  */
 function addCocktail(){
+      $('.addBtn').attr('disabled', true);
       var cocktail_object = {};
       var cocktailName = $('#cocktailName').val();
       var cocktailLocation = $('#location').val();
@@ -88,10 +89,10 @@ function addCocktail(){
 
       cocktail_array.push(cocktail_object);
       $('.data').empty();
-      $('.addBtn').prop('disabled', true);
       // clearAddCocktailFormInputs();
       addCocktailToServer(cocktail_object);
       updateCocktailList(cocktail_array);
+      
       // removeErrorMessages();
 }
 /***************************************************************************************************
@@ -502,7 +503,6 @@ function addCocktailToServer(cocktail_object){
                 }
       };
       $.ajax(ajaxOptionCreate);
-      $('.addBtn').prop('disabled', false);
 }
 
 function renderAddCocktail(){
