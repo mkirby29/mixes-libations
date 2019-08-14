@@ -92,6 +92,7 @@ function addCocktail(){
       // clearAddCocktailFormInputs();
       addCocktailToServer(cocktail_object);
       updateCocktailList(cocktail_array);
+      $('.addBtn').attr('disabled', false);
       
       // removeErrorMessages();
 }
