@@ -91,9 +91,7 @@ function addCocktail(){
       $('.data').empty();
       // clearAddCocktailFormInputs();
       addCocktailToServer(cocktail_object);
-      updateCocktailList(cocktail_array);
-      $('.addBtn').attr('disabled', false);
-      
+      updateCocktailList(cocktail_array);      
       // removeErrorMessages();
 }
 /***************************************************************************************************
@@ -485,6 +483,7 @@ function renderData(response){
       console.log(response);
       clearAddCocktailFormInputs();
       removeErrorMessages();
+      $('.addBtn').attr('disabled', false);
 }
 
 function addCocktailToServer(cocktail_object){
