@@ -88,6 +88,7 @@ function addCocktail(){
 
       cocktail_array.push(cocktail_object);
       $('.data').empty();
+      $('.addBtn').prop('disabled', true);
       // clearAddCocktailFormInputs();
       addCocktailToServer(cocktail_object);
       updateCocktailList(cocktail_array);
@@ -501,6 +502,7 @@ function addCocktailToServer(cocktail_object){
                 }
       };
       $.ajax(ajaxOptionCreate);
+      $('.addBtn').prop('disabled', false);
 }
 
 function renderAddCocktail(){
